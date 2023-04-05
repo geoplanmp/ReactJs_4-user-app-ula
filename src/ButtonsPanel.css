@@ -1,0 +1,11 @@
+.buttons-panel button {
+    background-color: lightskyblue;
+    padding: 5px 15px;
+    margin: 15px 5px;    
+    border: 0;
+    font-size: 1.2rem;
+    cursor: pointer;  
+}
+.buttons-panel button:hover {
+    opacity: 0.8;
+}

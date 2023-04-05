@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./UsersList.css";
+import ButtonsPanel from './ButtonsPanel';
 
 const UsersList = () => {
   const [formData, setFormData] = useState({
@@ -10,8 +11,7 @@ const UsersList = () => {
 
   const [users, setUsers] = useState([]);
 
-  const [usertype, setUsertype] = useState(formData.usertype);
-
+  
   const handleInputChange = (e) => {
     const target = e.target;
     const name = target.name;
@@ -30,29 +30,28 @@ const UsersList = () => {
     setUsers(filteredUsers)
   }
 
-  // let type = "Admin";
-  const showOnlyAdmins = () => {
-    // const filteredUsers = users.filter(user=>user.usertype === type)
-    // setUsers(filteredUsers)
-    console.log(usertype);
-  }
-
-  const showOnlyUsers = (type) => {
-    // const filteredUsers = users.filter(user=>user.usertype !== type)
-    // setUsers(filteredUsers)
-  }
   
-  const showAll = (type) => {
-    // const filteredUsers = users.filter(user=>user.usertype !== type)
-    // setUsers(filteredUsers)
+  const filterList = (e) => {
+    const target = e.target;
+    const type1 = target.usertype;
+    let filteredUsers;
+    if (e === 'admins') {
+      filteredUsers = users.filter(user=>user.usertype !== type1)
+      console.log(filteredUsers);
+      
+    } else if (e === 'users') {
+      console.log("users");
+    } else {
+      console.log("all");
+    }
+    // setUsers(currentFilteredUsers);
+    setUsers(filteredUsers);
   }
 
-  return (
+   return (
     <div className="usersList">
       <form onSubmit={setUser}>
-        <button type="submit" onClick={showOnlyAdmins}>Show only admins</button>
-        <button type="submit"onClick={showOnlyUsers}>Show only users</button>
-        <button type="submit" onClick={showAll}>Show all</button><br></br>
+        <br></br>
         <label htmlFor="username">User name</label>
         <input
           type="text"
@@ -78,6 +77,8 @@ const UsersList = () => {
         </select>
         <button>Save</button>
       </form>
+      
+      <ButtonsPanel buttonMethod={filterList} />
 
       <div className="list">
         {users.map((user) => {
@@ -89,7 +90,7 @@ const UsersList = () => {
             </div>
           );
         })}
-      </div>
+      </div>      
     </div>
   );
 };
